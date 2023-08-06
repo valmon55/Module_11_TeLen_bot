@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using CS_Basic.TeLen_bot.Controllers;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,18 @@ namespace CS_Basic.Module_11_Task_2_4
     internal class Bot : BackgroundService
     {
         private ITelegramBotClient _telegramClient;
-        public Bot(ITelegramBotClient telegramClient)
+        private TextMessageController _textMessageController;
+        private InlineKeyboardController _inlineKeyboardController;
+        private DefaultMessageController _defaultMessageController;
+        public Bot(
+            ITelegramBotClient telegramClient, 
+            TextMessageController textMessageController,
+            InlineKeyboardController inlineKeyboardController,
+            DefaultMessageController defaultMessageController)
         {
+            _textMessageController = textMessageController;
+            _inlineKeyboardController = inlineKeyboardController;
+            _defaultMessageController = defaultMessageController;   
             _telegramClient = telegramClient;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -35,9 +46,7 @@ namespace CS_Basic.Module_11_Task_2_4
 
             if (update.Type == UpdateType.CallbackQuery)
             {
-                await _telegramClient.SendTextMessageAsync(update.Message.Chat.Id,
-                    $"Данный тип сообщений не поддерживается. Пожалуйста отправьте текст.",
-                    cancellationToken: cancellationToken);
+                await _inlineKeyboardController.Handle(update.CallbackQuery, cancellationToken);
                 return;
             }
             if (update.Type == UpdateType.Message)
@@ -45,17 +54,11 @@ namespace CS_Basic.Module_11_Task_2_4
                 switch (update.Message!.Type)
                 {
                     case MessageType.Text:
-                        Console.WriteLine($"Получено сообщение {update.Message.Text}");
-                        await _telegramClient.SendTextMessageAsync(update.Message.Chat.Id,
-                            $"Длина сообщения: {update.Message.Text.Length} знаков",
-                            cancellationToken: cancellationToken);
-                    break;
-                default :
-                    Console.WriteLine($"Тип сообщения {update.Message.Type.ToString()}");
-                    await _telegramClient.SendTextMessageAsync(update.Message.Chat.Id,
-                        $"Данный тип сообщений не поддерживается. Пожалуйста отправьте текст.", 
-                        cancellationToken: cancellationToken);
-                    break;
+                        await _textMessageController.Handle(update.Message, cancellationToken);
+                        break;
+                    default :
+                        await _defaultMessageController.Handle(update.Message, cancellationToken);
+                        break;
                 }
             }
         }

@@ -1,4 +1,6 @@
 ﻿using CS_Basic.Module_11_Task_2_4;
+using CS_Basic.TeLen_bot.Controllers;
+using CS_Basic.TeLen_bot.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
@@ -26,6 +28,10 @@ namespace CS_Basic.TeLen_bot
 
         static void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<Session>();
+            services.AddTransient<TextMessageController>();
+            services.AddTransient<DefaultMessageController>();
+            services.AddTransient<InlineKeyboardController>();
             // Регистрируем объект TelegramBotClient c токеном подключения
             services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient("6635203821:AAFevqGTbmQkeu-YiilAQlcgFXFNdUNw414"));
             // Регистрируем постоянно активный сервис бота
