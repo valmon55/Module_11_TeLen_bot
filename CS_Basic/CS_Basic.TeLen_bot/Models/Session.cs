@@ -8,6 +8,7 @@ namespace CS_Basic.TeLen_bot.Models
 {
     public class Session
     {
-        public enum TextTask { Lenth = 0, Sum};
+        //public enum TextTask { Lenth = 0, Sum };
+        public string TextTask { get; set; }
     }
 }
