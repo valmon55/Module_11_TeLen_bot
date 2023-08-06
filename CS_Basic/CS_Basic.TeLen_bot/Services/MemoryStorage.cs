@@ -27,7 +27,7 @@ namespace CS_Basic.TeLen_bot.Services
                 return _sessions[chatId];
 
             // Создаем и возвращаем новую, если такой не было
-            var newSession = new Session() { TextTask = "len" };
+            var newSession = new Session() { TextTask = "sum" };
             _sessions.TryAdd(chatId, newSession);
             return newSession;
         }
