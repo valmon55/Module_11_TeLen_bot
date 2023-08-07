@@ -1,4 +1,5 @@
-﻿using CS_Basic.TeLen_bot.Models;
+﻿using CS_Basic.Module_11_Task_2_4;
+using CS_Basic.TeLen_bot.Models;
 using CS_Basic.TeLen_bot.Services;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,9 @@ namespace CS_Basic.TeLen_bot.Controllers
         {
             if(callbackQuery?.Data == null)
                 return;
-            
+
+            Bot.TextTask = callbackQuery.Data;
+
             _memoryStorage.GetSession(callbackQuery.From.Id).TextTask = callbackQuery.Data;
             Console.WriteLine($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery.Data}");
 

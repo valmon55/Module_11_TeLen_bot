@@ -1,4 +1,5 @@
-﻿using CS_Basic.TeLen_bot.Services;
+﻿using CS_Basic.Module_11_Task_2_4;
+using CS_Basic.TeLen_bot.Services;
 using CS_Basic.TeLen_bot.Utilities;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace CS_Basic.TeLen_bot.Controllers
                         , replyMarkup: new InlineKeyboardMarkup(buttons));
                     break;
                 default:
-                    switch (_memoryStorage.GetSession(message.Chat.Id).TextTask)
+                    switch (Bot.TextTask)
                     {
                         case "len":
                             await _telegramClient.SendTextMessageAsync(message.Chat.Id,

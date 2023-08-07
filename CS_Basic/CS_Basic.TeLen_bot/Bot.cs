@@ -13,8 +13,10 @@ using Telegram.Bot.Types.Enums;
 
 namespace CS_Basic.Module_11_Task_2_4
 {
-    internal class Bot : BackgroundService
+    public class Bot : BackgroundService
     {
+        public static string? TextTask { get; set; }
+
         private ITelegramBotClient _telegramClient;
         private TextMessageController _textMessageController;
         private InlineKeyboardController _inlineKeyboardController;
@@ -25,6 +27,7 @@ namespace CS_Basic.Module_11_Task_2_4
             InlineKeyboardController inlineKeyboardController,
             DefaultMessageController defaultMessageController)
         {
+            TextTask = "len";
             _textMessageController = textMessageController;
             _inlineKeyboardController = inlineKeyboardController;
             _defaultMessageController = defaultMessageController;   
