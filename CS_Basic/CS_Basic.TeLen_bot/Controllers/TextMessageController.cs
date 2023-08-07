@@ -17,14 +17,13 @@ namespace CS_Basic.TeLen_bot.Controllers
     {
         private readonly ITelegramBotClient _telegramClient;
         private readonly TextFunctions _textFunctions;
-        private readonly IStorage _memoryStorage;
+        //private readonly IStorage _memoryStorage;
         public TextMessageController(ITelegramBotClient telegramClient, 
-            TextFunctions textFunctions,
-            IStorage memoryStorage)
+            TextFunctions textFunctions/*,IStorage memoryStorage*/)
         {
             _telegramClient= telegramClient;
             _textFunctions = textFunctions;
-            _memoryStorage = memoryStorage;
+            //_memoryStorage = memoryStorage;
         }
         public async Task Handle(Message message, CancellationToken ct)
         {

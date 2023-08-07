@@ -31,7 +31,7 @@ namespace CS_Basic.TeLen_bot
         static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<TextFunctions>();
-            services.AddTransient<IStorage, MemoryStorage>();
+            //services.AddTransient<IStorage, MemoryStorage>();
             services.AddTransient<TextMessageController>();
             services.AddTransient<DefaultMessageController>();
             services.AddTransient<InlineKeyboardController>();

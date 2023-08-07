@@ -13,12 +13,11 @@ namespace CS_Basic.TeLen_bot.Controllers
 {
     public class InlineKeyboardController
     {
-        private readonly IStorage _memoryStorage;
+        //private readonly IStorage _memoryStorage;
         private readonly ITelegramBotClient _telegramClient;
-        public InlineKeyboardController(ITelegramBotClient telegramClient,
-                                        IStorage memoryStorage)
+        public InlineKeyboardController(ITelegramBotClient telegramClient/*,IStorage memoryStorage*/)
         {
-            _memoryStorage = memoryStorage;
+            //_memoryStorage = memoryStorage;
             _telegramClient = telegramClient;
         }
         public async Task Handle(CallbackQuery? callbackQuery, CancellationToken ct)
@@ -28,7 +27,7 @@ namespace CS_Basic.TeLen_bot.Controllers
 
             Bot.TextTask = callbackQuery.Data;
 
-            _memoryStorage.GetSession(callbackQuery.From.Id).TextTask = callbackQuery.Data;
+            //_memoryStorage.GetSession(callbackQuery.From.Id).TextTask = callbackQuery.Data;
             Console.WriteLine($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery.Data}");
 
             string description = callbackQuery.Data switch
